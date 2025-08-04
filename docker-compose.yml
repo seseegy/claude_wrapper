@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  claude-wrapper:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - VALID_API_KEYS=${VALID_API_KEYS}
+    volumes:
+      # Mount Claude CLI config (after authentication)
+      - ~/.claude:/home/appuser/.claude:ro
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
