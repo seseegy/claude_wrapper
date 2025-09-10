@@ -1,111 +1,112 @@
 # Claude Code OpenAI Wrapper
 
-🤖 **A production-ready OpenAI-compatible API wrapper for Claude Code CLI with dual mode system**
+🤖 **Wrapper API siap produksi yang kompatibel dengan OpenAI untuk Claude Code CLI dengan sistem dual mode**
 
-This project provides a FastAPI-based wrapper that makes Claude Code CLI compatible with OpenAI API format, enabling seamless integration with existing OpenAI-based applications while leveraging Claude's advanced capabilities.
+Proyek ini menyediakan wrapper berbasis FastAPI yang membuat Claude Code CLI kompatibel dengan format API OpenAI, memungkinkan integrasi yang mulus dengan aplikasi berbasis OpenAI yang sudah ada sambil memanfaatkan kemampuan canggih Claude.
 
-## ✨ Features
+## ✨ Fitur
 
-### 🔄 **Dual Mode System**
-- **Claude Code Mode**: Latest 2025 information, coding assistance, current events
-- **Claude Regular Mode**: Image analysis, file processing, general conversations
-- **Smart Auto-Switching**: Automatically selects the best model based on context
+### 🔄 **Sistem Dual Mode**
+- **Claude Code Mode**: Informasi terbaru 2025, bantuan coding, peristiwa terkini
+- **Claude Regular Mode**: Analisis gambar, pemrosesan file, percakapan umum
+- **Smart Auto-Switching**: Otomatis memilih model terbaik berdasarkan konteks
 
-### 🚀 **Core Capabilities**
-- **OpenAI API Compatible**: Drop-in replacement for OpenAI API endpoints
-- **Streaming Support**: Real-time response streaming
-- **Multiple Model Support**: Claude Sonnet 4, Claude 3.5 Sonnet, Haiku, Opus
-- **Authentication System**: API key protection with configurable access control
-- **Health Monitoring**: Built-in health checks and metrics
-- **Docker Support**: Ready for containerized deployment
+### 🚀 **Kemampuan Utama**
+- **Kompatibel dengan OpenAI API**: Pengganti langsung untuk endpoint API OpenAI
+- **Dukungan Streaming**: Streaming respons real-time
+- **Dukungan Multi Model**: Claude Sonnet 4, Claude 3.5 Sonnet, Haiku, Opus
+- **Sistem Autentikasi**: Perlindungan API key dengan kontrol akses yang dapat dikonfigurasi
+- **Health Monitoring**: Health check dan metrics bawaan
+- **Dukungan Docker**: Siap untuk deployment containerized
 
-### 📎 **Advanced Features**
-- **Image Analysis**: Process and analyze images using Claude's vision capabilities
-- **File Processing**: Support for PDF, text files, and documents
-- **Session Management**: Conversation context preservation
-- **Error Handling**: Robust error handling with detailed logging
-- **Rate Limiting**: Built-in protection against abuse
+### 📎 **Fitur Lanjutan**
+- **Analisis Gambar**: Memproses dan menganalisis gambar menggunakan kemampuan vision Claude
+- **Pemrosesan File**: Dukungan untuk PDF, file teks, dan dokumen
+- **Manajemen Sesi**: Preservasi konteks percakapan
+- **Error Handling**: Penanganan error yang robust dengan logging detail
+- **Rate Limiting**: Perlindungan bawaan terhadap penyalahgunaan
 
-## 🏗️ Architecture
+## 🏗️ Arsitektur
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Client App    │────│  FastAPI Wrapper │────│   Claude CLI    │
-│  (OpenAI SDK)   │    │   (This Project) │    │   (Official)    │
+│   Aplikasi      │────│  FastAPI Wrapper │────│   Claude CLI    │
+│   Client        │    │   (Proyek Ini)   │    │   (Official)    │
+│  (OpenAI SDK)   │    │                  │    │                 │
 └─────────────────┘    └──────────────────┘    └─────────────────┘
 ```
 
-### Model Mapping
-| OpenAI Model | Claude Model | Use Case |
-|--------------|--------------|----------|
-| `gpt-4o` | Claude 3.5 Sonnet | General tasks, image analysis |
-| `claude-4-sonnet` | Claude Sonnet 4 | Latest info, coding |
-| `gpt-4` | Claude 3 Sonnet | Standard tasks |
-| `gpt-3.5-turbo` | Claude 3 Haiku | Fast responses |
+### Mapping Model
+| Model OpenAI | Model Claude | Kasus Penggunaan |
+|--------------|--------------|------------------|
+| `gpt-4o` | Claude 3.5 Sonnet | Tugas umum, analisis gambar |
+| `claude-4-sonnet` | Claude Sonnet 4 | Info terbaru, coding |
+| `gpt-4` | Claude 3 Sonnet | Tugas standar |
+| `gpt-3.5-turbo` | Claude 3 Haiku | Respon cepat |
 
-## 🚀 Quick Start
+## 🚀 Memulai Cepat
 
-### Prerequisites
+### Prasyarat
 - Python 3.8+
-- Claude Code CLI installed and authenticated
-- Node.js 16+ (for WhatsApp bot)
+- Claude Code CLI terinstal dan ter-autentikasi
+- Node.js 16+ (untuk bot WhatsApp)
 
-### Installation
+### Instalasi
 
-1. **Clone the repository:**
+1. **Clone repository:**
 ```bash
-git clone https://github.com/seseegy/claude-wrapper
+git clone https://github.com/seseegy/claude_wrapper
 cd claude-ai
 ```
 
-2. **Install Python dependencies:**
+2. **Install dependensi Python:**
 ```bash
 pip install -r requirements.txt
 ```
 
-3. **Install and authenticate Claude Code CLI:**
+3. **Install dan autentikasi Claude Code CLI:**
 ```bash
 npm install -g @anthropic-ai/claude-code
 claude auth login
 ```
 
-4. **Start the API server:**
+4. **Jalankan server API:**
 ```bash
 python main.py
 ```
 
-The API will be available at `http://localhost:8000` with documentation at `http://localhost:8000/docs`
+API akan tersedia di `http://localhost:8000` dengan dokumentasi di `http://localhost:8000/docs`
 
-## 📖 API Usage
+## 📖 Penggunaan API
 
-### Basic Chat Completion
+### Chat Completion Dasar
 ```python
 import openai
 
 client = openai.OpenAI(
-    api_key="your-api-key",  # Set in VALID_API_KEYS env var
+    api_key="your-api-key",  # Diatur di VALID_API_KEYS env var
     base_url="http://localhost:8000/v1"
 )
 
 response = client.chat.completions.create(
-    model="claude-4-sonnet",  # Latest info + coding
+    model="claude-4-sonnet",  # Info terbaru + coding
     messages=[
-        {"role": "user", "content": "Who is the current president of Indonesia?"}
+        {"role": "user", "content": "Siapa presiden Indonesia saat ini?"}
     ]
 )
 
 print(response.choices[0].message.content)
-# Output: "Prabowo Subianto (2024-2029) with VP Gibran Rakabuming Raka"
+# Output: "Prabowo Subianto (2024-2029) dengan Wapres Gibran Rakabuming Raka"
 ```
 
-### Image Analysis
+### Analisis Gambar
 ```python
 response = client.chat.completions.create(
-    model="gpt-4o",  # Automatically uses Claude Regular for images
+    model="gpt-4o",  # Otomatis menggunakan Claude Regular untuk gambar
     messages=[
         {
             "role": "user", 
-            "content": "Please analyze this image and describe what you see."
+            "content": "Tolong analisis gambar ini dan jelaskan apa yang Anda lihat."
         }
     ]
 )
@@ -115,7 +116,7 @@ response = client.chat.completions.create(
 ```python
 stream = client.chat.completions.create(
     model="claude-4-sonnet",
-    messages=[{"role": "user", "content": "Explain quantum computing"}],
+    messages=[{"role": "user", "content": "Jelaskan quantum computing"}],
     stream=True
 )
 
@@ -123,37 +124,37 @@ for chunk in stream:
     print(chunk.choices[0].delta.content, end="")
 ```
 
-## 🤖 WhatsApp Bot Integration
+## 🤖 Integrasi Bot WhatsApp
 
-This project includes a full-featured WhatsApp bot with Claude integration:
+Proyek ini termasuk bot WhatsApp berfitur lengkap dengan integrasi Claude:
 
-### Features
-- **Dual Mode AI**: Automatic switching between Claude models
-- **Media Processing**: Image analysis, PDF reading, document processing
-- **Access Control**: User management and permissions
-- **Session Management**: Conversation context per user
-- **Admin Commands**: User management, bot status, etc.
+### Fitur
+- **Dual Mode AI**: Switching otomatis antar model Claude
+- **Pemrosesan Media**: Analisis gambar, pembacaan PDF, pemrosesan dokumen
+- **Kontrol Akses**: Manajemen pengguna dan permissions
+- **Manajemen Sesi**: Konteks percakapan per pengguna
+- **Perintah Admin**: Manajemen pengguna, status bot, dll.
 
-### Setup WhatsApp Bot
+### Setup Bot WhatsApp
 ```bash
 cd whatsapp-bot
 npm install
 node bot.js
 ```
 
-## ⚙️ Configuration
+## ⚙️ Konfigurasi
 
 ### Environment Variables
 ```bash
-# Server Configuration
+# Konfigurasi Server
 PORT=8000
 HOST=0.0.0.0
 LOG_LEVEL=INFO
 
-# Authentication (comma-separated API keys)
+# Autentikasi (API keys dipisah koma)
 VALID_API_KEYS="sk-key1,sk-key2,sk-key3"
 
-# Claude CLI Configuration
+# Konfigurasi Claude CLI
 CLAUDE_CLI_TIMEOUT=60
 CLAUDE_MODEL_DEFAULT=claude-3-sonnet-20240229
 
@@ -168,7 +169,7 @@ ENABLE_LOGGING=true
 
 ## 🐳 Docker Deployment
 
-### Using Docker Compose
+### Menggunakan Docker Compose
 ```bash
 docker-compose up -d
 ```
@@ -186,100 +187,100 @@ docker run -p 8000:8000 -e VALID_API_KEYS="your-keys" claude-ai-wrapper
 curl http://localhost:8000/health
 ```
 
-### Available Models
+### Model yang Tersedia
 ```bash
 curl http://localhost:8000/v1/models
 ```
 
 ## 🔧 Development
 
-### Project Structure
+### Struktur Proyek
 ```
 claude-ai/
-├── main.py                    # FastAPI application entry point
-├── corrected_claude_client.py # Claude CLI integration
-├── requirements.txt           # Python dependencies
-├── docker-compose.yml         # Docker configuration
-├── test.py                   # API tests
-└── README.md                 # This file
+├── main.py                    # Entry point aplikasi FastAPI
+├── corrected_claude_client.py # Integrasi Claude CLI
+├── requirements.txt           # Dependensi Python
+├── docker-compose.yml         # Konfigurasi Docker
+├── test.py                   # Test API
+└── README.md                 # File ini
 ```
 
 ### Testing
 ```bash
-# Test API endpoint
+# Test endpoint API
 python test.py
 
-# Test with current info
+# Test dengan info terkini
 python test_dual.py
 
-# Test image analysis
+# Test analisis gambar
 python test_image.py
 ```
 
-## 🛡️ Security
+## 🛡️ Keamanan
 
-### Authentication
-- API key-based authentication
-- Configurable access control
-- Rate limiting protection
+### Autentikasi
+- Autentikasi berbasis API key
+- Kontrol akses yang dapat dikonfigurasi
+- Perlindungan rate limiting
 
 ### Best Practices
-- Never commit API keys to version control
-- Use environment variables for sensitive data
-- Regularly rotate authentication credentials
+- Jangan commit API keys ke version control
+- Gunakan environment variables untuk data sensitif
+- Rotate credentials secara berkala
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Masalah Umum
 
-1. **Claude CLI Not Authenticated**
+1. **Claude CLI Tidak Ter-autentikasi**
 ```bash
 claude auth login
 ```
 
-2. **Port Already in Use**
+2. **Port Sudah Digunakan**
 ```bash
 pkill -f "python main.py"
 PORT=8001 python main.py
 ```
 
-3. **Model Timeout Issues**
+3. **Masalah Timeout Model**
 ```bash
 export CLAUDE_CLI_TIMEOUT=120
 ```
 
-## 📄 API Reference
+## 📄 Referensi API
 
-### Supported Endpoints
+### Endpoint yang Didukung
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
+| Endpoint | Method | Deskripsi |
+|----------|--------|-----------|
 | `/v1/chat/completions` | POST | Chat completions (streaming/non-streaming) |
-| `/v1/models` | GET | List available models |
+| `/v1/models` | GET | Daftar model yang tersedia |
 | `/health` | GET | Health check |
-| `/docs` | GET | Interactive API documentation |
+| `/docs` | GET | Dokumentasi API interaktif |
 
-## 🤝 Contributing
+## 🤝 Kontribusi
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes and test thoroughly
-4. Commit with clear messages: `git commit -m "Add feature X"`
-5. Push to your fork: `git push origin feature-name`
-6. Create a Pull Request
+1. Fork repository ini
+2. Buat branch fitur: `git checkout -b nama-fitur`
+3. Buat perubahan dan test menyeluruh
+4. Commit dengan pesan yang jelas: `git commit -m "Tambah fitur X"`
+5. Push ke fork Anda: `git push origin nama-fitur`
+6. Buat Pull Request
 
-## 📝 License
+## 📝 Lisensi
 
-This project is licensed under the MIT License.
+Proyek ini dilisensikan di bawah MIT License.
 
 ## 🙏 Acknowledgments
 
-- [Anthropic](https://anthropic.com) for Claude AI
-- [FastAPI](https://fastapi.tiangolo.com) for the excellent web framework
-- [OpenAI](https://openai.com) for the API standard
+- [Anthropic](https://anthropic.com) untuk Claude AI
+- [FastAPI](https://fastapi.tiangolo.com) untuk web framework yang excellent
+- [OpenAI](https://openai.com) untuk standar API
 
 ---
 
-**Made with ❤️ for the AI community**
+**Dibuat dengan ❤️ untuk komunitas AI Indonesia**
 
-*Transform your Claude Code CLI into a production-ready API service with advanced dual-mode capabilities!*
+*Ubah Claude Code CLI Anda menjadi layanan API siap produksi dengan kemampuan dual-mode canggih!*
