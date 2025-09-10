@@ -54,7 +54,7 @@ This project provides a FastAPI-based wrapper that makes Claude Code CLI compati
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/claude-ai
+git clone https://github.com/seseegy/claude-wrapper
 cd claude-ai
 ```
 
